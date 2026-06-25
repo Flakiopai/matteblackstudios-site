@@ -4,7 +4,7 @@ Static, sovereign website for MATTEBLACK STUDIOS digital products. HTML, CSS, an
 
 ## Project purpose
 
-A privacy-first marketing and product catalog site for MATTEBLACK STUDIOS. Every asset is self-hosted. The only optional JavaScript (`reveal.js`) adds scroll reveals and a mobile navigation toggle — it does not collect data or call external services.
+A privacy-first marketing and product catalog site that showcases MATTEBLACK STUDIOS workflow packs. Every asset is self-hosted. The only optional JavaScript (`reveal.js`) adds scroll reveals and a mobile navigation toggle — it does not collect data or call external services.
 
 ## Sovereign constraints
 
@@ -15,6 +15,8 @@ These rules are non-negotiable across all site code:
 - **No external dependencies** — no CDN fonts, scripts, or stylesheets
 - **No device detection** — no user-agent sniffing or JavaScript viewport breakpoints
 - **CSS-only responsiveness** — layout adapts using `@media (min-width: …)` only
+
+Checkout links (Gumroad) are user-initiated external navigations, not embedded third-party scripts.
 
 ## Mobile-first architecture
 
@@ -35,7 +37,8 @@ All full-height sections use `100dvh` with `min-height: -webkit-fill-available` 
 ## Image handling
 
 - All images are self-hosted under `/assets/`
-- The Products page uses accessible CSS placeholders until preview images are published
+- Product images use `loading="lazy"`, `decoding="async"`, intrinsic `width`/`height`, and `srcset` with width descriptors
+- `sizes` hints tell the browser layout width: `(min-width: 768px) 50vw, 100vw` for two-column cards
 - Global CSS enforces `max-width: 100%`, `height: auto`, and `object-fit: cover` on images
 
 ## Instagram / in-app WebView considerations
@@ -47,7 +50,7 @@ All full-height sections use `100dvh` with `min-height: -webkit-fill-available` 
 
 ## Security headers (host-level)
 
-Static HTML cannot enforce security headers — configure these on your host (Netlify `_headers`, Cloudflare, nginx, etc.). Recommended values are documented in the `styles.css` file header and in HTML `<!-- -->` comments.
+Static HTML cannot enforce security headers — configure these on your host (Netlify `_headers`, Cloudflare, nginx, etc.). Recommended values are documented in the `styles.css` file header and in `_headers`.
 
 ## Local preview
 
@@ -65,16 +68,23 @@ Open `http://localhost:8080` in your browser. Root-absolute paths (`/styles.css`
 index.html              Home page
 styles.css              Global design system and layout (mobile-first)
 reveal.js               Optional scroll reveals and mobile nav
+_headers                Netlify security headers
 privacy.html            Privacy policy
 terms.html              Terms of service
 safety.html             Safety and compliance disclosures
 PRODUCTS/
-  index.html            Product catalog (Coming Soon placeholders)
+  index.html            Product catalog (two live products)
 assets/
   hero-bg.png           Site background image
+  products/             Gumroad product thumbnails
 ```
 
 ## Deploy
 
-Deploy the project root as a static site (e.g. Netlify drag-and-drop or git-connected build with no build step). All assets are self-contained — no install or compile required. Add the recommended security headers at the host level.
+Deploy the project root as a static site (Netlify drag-and-drop or git-connected build with no build step). All assets are self-contained — no install or compile required. `_headers` applies recommended security headers on Netlify automatically.
 
+This repo is kept in sync with `BUSINESS/00_PROJECTS/MATTEBLACKSTUDIOS_SITE/` — either folder can be deployed.
+
+## Rules
+
+All site work must align with `.cursor/rules/` when present in the repository.
