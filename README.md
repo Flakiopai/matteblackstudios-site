@@ -81,6 +81,28 @@ A production-only copy of this site is maintained separately for Netlify redeplo
 
 ---
 
+## Website Architecture
+
+```mermaid
+flowchart TD
+    subgraph Local Workspace
+        A[03_VAULT/MATTEBLACKSTUDIOS_SITE<br/>Production-only version]
+        B[GITHUB/MATTEBLACKSTUDIOS_SITE<br/>Repo version with scaffolding]
+    end
+
+    A -->|Manual Deploy| C(Netlify Hosting<br/>matteblackstudios.netlify.app)
+    A -->|Synced Website Content| B
+
+    subgraph GitHub Repo
+        B --> D[Repo Scaffolding<br/>.gitignore<br/>LICENSE<br/>README<br/>SECURITY<br/>CONTRIBUTING<br/>CODE_OF_CONDUCT]
+        B --> E[Commit + Push<br/>Author: MatteBlackStudios]
+    end
+
+    C --> F[Live Website<br/>Static, privacy-first storefront]
+```
+
+---
+
 ## Contributing
 
 See [`CONTRIBUTING.md`](CONTRIBUTING.md), [`SECURITY.md`](SECURITY.md), and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
